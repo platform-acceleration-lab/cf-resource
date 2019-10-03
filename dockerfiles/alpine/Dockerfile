@@ -2,7 +2,8 @@ FROM golang:alpine as builder
 RUN apk add --no-cache curl jq
 RUN mkdir -p /assets
 WORKDIR /assets
-RUN curl -L "https://packages.cloudfoundry.org/stable?release=linux64-binary&source=github" | tar -xzf -
+RUN curl -L "https://packages.cloudfoundry.org/stable?release=linux64-binary&version=7.0.0-beta.25&source=github-rel" | tar -xzf -
+RUN mv cf7 cf
 COPY . /go/src/github.com/concourse/cf-resource
 ENV CGO_ENABLED 0
 RUN go build -o /assets/in github.com/concourse/cf-resource/in/cmd/in
